@@ -7,7 +7,7 @@ import lombok.Setter;
 
 @Entity
 @Table(name = "order_item")
-//@IdClass(OrderItemId.class)
+@IdClass(OrderItemId.class)
 @Getter @Setter
 @NoArgsConstructor
 public class OrderItemEntity {
