@@ -21,10 +21,23 @@ public class PizzaController {
         return ResponseEntity.ok(this.pizzaService.getAll());
 
     };
+
     @GetMapping("/{idPizza}")
     public ResponseEntity<PizzaEntity> get(@PathVariable int idPizza){
         return ResponseEntity.ok(this.pizzaService.get(idPizza));
 
+    };
+    @GetMapping("/available")
+    public ResponseEntity<List<PizzaEntity>> getAvailable(){
+        return ResponseEntity.ok(this.pizzaService.getAvailable());
+    };
+    @GetMapping("/with/{ingredient}")
+    public ResponseEntity<List<PizzaEntity>> getWith(@PathVariable String ingredient){
+        return ResponseEntity.ok(this.pizzaService.getWith(ingredient));
+    };
+    @GetMapping("/name/{name}")
+    public ResponseEntity<PizzaEntity> getByName(@PathVariable String name){
+        return ResponseEntity.ok(this.pizzaService.getByName(name));
     };
     @PostMapping
     public ResponseEntity<PizzaEntity> add(@RequestBody PizzaEntity pizza){
@@ -40,6 +53,15 @@ public class PizzaController {
             return ResponseEntity.ok(this.pizzaService.save(pizza));
         }
         return ResponseEntity.badRequest().build();
+    }
+    @DeleteMapping("/{idPizza}")
+    public ResponseEntity<Void> delete(@PathVariable int idPizza){
+        if (this.pizzaService.exists(idPizza)){
+            this.pizzaService.delete(idPizza);
+            return ResponseEntity.ok().build();
+        }
+        return ResponseEntity.badRequest().build();
+
     }
 }
 
